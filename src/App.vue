@@ -1,9 +1,8 @@
 <script setup>
-import { RouterView } from 'vue-router'
 </script>
 
 <template>
-  <RouterView />
+  <el-button type="primary">Primary</el-button>
 </template>
 
 <style scoped>
