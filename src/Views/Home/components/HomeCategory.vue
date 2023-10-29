@@ -1,26 +1,27 @@
 <script setup>
-
+import { useCategoryStore } from '@/stores/category.js'
+const categoryStore = useCategoryStore()
 </script>
 
 <template>
   <div class="home-category">
     <ul class="menu">
-      <li v-for="item in 9" :key="item">
-        <RouterLink to="/">居家</RouterLink>
-        <RouterLink v-for="i in 2" :key="i" to="/">南北干货</RouterLink>
+      <li v-for="item in categoryStore.categoryList" :key="item">
+        <RouterLink to="/">{{ item.name }}</RouterLink>
+        <RouterLink v-for="item1 in item.children.slice(0,2)" :key="item1" to="/">{{ item1.name }}</RouterLink>
         <!-- 弹层layer位置 -->
         <div class="layer">
           <h4>分类推荐 <small>根据您的购买或浏览记录推荐</small></h4>
           <ul>
-            <li v-for="i in 5" :key="i">
+            <li v-for="item2 in item.goods" :key="item2">
               <RouterLink to="/">
-                <img alt="" />
+                <img alt="" :src="item2.picture"/>
                 <div class="info">
                   <p class="name ellipsis-2">
-                    男士外套
+                    {{ item2.name }}
                   </p>
-                  <p class="desc ellipsis">男士外套，冬季必选</p>
-                  <p class="price"><i>¥</i>200.00</p>
+                  <p class="desc ellipsis">{{ item2.desc }}</p>
+                  <p class="price"><i>¥</i>{{ item2.price }}</p>
                 </div>
               </RouterLink>
             </li>
