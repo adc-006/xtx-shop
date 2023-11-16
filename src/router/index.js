@@ -18,6 +18,10 @@ const router = createRouter({
         {
           path: 'category/sub/:id',
           component: () => import('@/views/SubCategory/index.vue')
+        },
+        {
+          path: 'detail/:id',
+          component: () => import('@/views/Detail/index.vue')
         }
       ]
     },
@@ -26,13 +30,18 @@ const router = createRouter({
       component: () => import('@/views/Login/index.vue')
     },
     {
-      path: "/:pathMatch(.*)*", // 解决路由爆[Vue Router warn]: No match found for location with path
+      path: "/:pathMatch(.*)*",
       meta: {
         title: "找不到此页面",
       },
       component: () => import("@/views/error/404.vue"),
     },
-  ]
+  ],
+  scrollBehavior() {
+    return {
+      top: 0
+    }
+  }
 })
 
 export default router
