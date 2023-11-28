@@ -2,7 +2,7 @@
 import { ref, onMounted } from 'vue'
 import { apiGetBannerList } from '@/apis/banner.js'
 import { apiGetCategoryData } from '@/apis/category.js'
-import GoodsItem from '@/Views/Home/components/GoodsItem.vue'
+import GoodsItem from '@/views/Home/components/GoodsItem.vue'
 import { useRoute } from 'vue-router'
 
 // 获取轮播图
@@ -21,7 +21,6 @@ const categoryData = ref([])
 const getCategoryData = async () => {
   const data = await apiGetCategoryData({id: route.params.id})
   categoryData.value = data.result
-  console.log(categoryData.value)
 }
 onMounted(() => {
   getCategoryData()
@@ -35,7 +34,7 @@ onMounted(() => {
       <div class="bread-container">
         <el-breadcrumb separator=">">
           <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-          <el-breadcrumb-item>居家</el-breadcrumb-item>
+          <el-breadcrumb-item>{{ categoryData.name }}</el-breadcrumb-item>
         </el-breadcrumb>
       </div>
       <!-- 轮播图 -->
@@ -51,7 +50,7 @@ onMounted(() => {
         <h3>全部分类</h3>
         <ul>
           <li v-for="i in categoryData.children" :key="i.id">
-            <RouterLink to="/">
+            <RouterLink :to="`/category/sub/${i.id}`">
               <img :src="i.picture" />
               <p>{{ i.name }}</p>
             </RouterLink>
