@@ -1,4 +1,5 @@
 import axios from 'axios'
+import app from '@/main';
 
 // 创建axios实例
 const http = axios.create({
